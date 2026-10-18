@@ -1,0 +1,17 @@
+{
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "python": "3.12.14",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+  "windows_native_tested": false,
+  "cpu_backend": "AsterVM native C++ Interpreter16",
+  "core_test_groups": 28,
+  "exhaustive_arithmetic_vectors": 131072,
+  "cli_tests": 8,
+  "external_qa_framework_tests": 13,
+  "external_corpus": {
+    "total": 40,
+    "passed": 16,
+    "unsupported": 24
+  },
+  "ctest_targets": 3
+}

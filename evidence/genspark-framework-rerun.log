@@ -1,0 +1,18 @@
+test_bad_json_detected (test_harness.HarnessTests.test_bad_json_detected) ... ok
+test_defined_flag_fault_detected (test_harness.HarnessTests.test_defined_flag_fault_detected) ... ok
+test_expected_never_sent (test_harness.HarnessTests.test_expected_never_sent) ... ok
+test_fixture_matches (test_harness.HarnessTests.test_fixture_matches) ... ok
+test_missing_ram_rejected (test_harness.HarnessTests.test_missing_ram_rejected) ... ok
+test_process_failure_detected (test_harness.HarnessTests.test_process_failure_detected) ... ok
+test_reason_fault_detected (test_harness.HarnessTests.test_reason_fault_detected) ... ok
+test_register_fault_detected (test_harness.HarnessTests.test_register_fault_detected) ... ok
+test_timeout_detected (test_harness.HarnessTests.test_timeout_detected) ... ok
+test_unchanged_register_fault_detected (test_harness.HarnessTests.test_unchanged_register_fault_detected) ... ok
+test_undefined_af_ignored_for_xor (test_harness.HarnessTests.test_undefined_af_ignored_for_xor) ... ok
+test_unexpected_memory_write_detected (test_harness.HarnessTests.test_unexpected_memory_write_detected) ... ok
+test_vectors_valid_unique (test_harness.HarnessTests.test_vectors_valid_unique) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.371s
+
+OK

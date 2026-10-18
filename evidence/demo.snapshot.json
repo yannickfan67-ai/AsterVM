@@ -1,0 +1,1 @@
+{"schema":"astervm.snapshot.v1","contract":"astervm.m0.v1","mode":"real16","stop":"halted","steps":25,"attempts":25,"state":{"eax":10,"ecx":0,"edx":0,"ebx":0,"esp":0,"ebp":0,"esi":0,"edi":0,"es":0,"cs":0,"ss":0,"ds":0,"fs":0,"gs":0,"eip":31793,"eflags":2,"halted":true},"tty":"AsterVM M0\u000d\u000a","memory":[],"detail":""}
