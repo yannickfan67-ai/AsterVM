@@ -30,9 +30,13 @@ python tools/verify.py --cli build/cmake/astervm_cli --load examples/stack-call.
 ## 范围与风险
 
 - SS:FFFF起点的word访问返回可回滚M0 fault，不实现#SS/#DF投递。PUSH SP采用286+语义；不是8086逐周期模拟。
-- Windows原生尚无本地实跑；CI已提供Linux/Windows矩阵，须查实际运行结果后更新状态。
+- Windows本地未测试；GitHub Actions 的 Windows 原生构建、CLI/核心及外部QA的3个CTest目标已通过（运行39130913103，代码提交79fecff6bfb498277101358b083f1fa08b87257f）。Linux矩阵同样通过。该结果不代表完整客体系统兼容。
 - 仍缺13个原始案例覆盖，见evidence/external-qa-summary.json；不是完整x86或PC系统。
 - GLM v0.2包可见但下载未成功，未集成；Claude独立审查待完成。
 - 没有启动客体操作系统；GUI、固件、磁盘和中断设备尚未实现。
 
 回退：使用Git历史中的v0.1.0导入提交或原始基线ZIP。此次评审以独立开发分支提交，不直接改main。
+
+## 远端原生CI证据
+
+运行：https://github.com/yannickfan67-ai/AsterVM/actions/runs/39130913103 。Ubuntu job 117685700296 与 Windows job 117685700462 的 Configure、Build、Test 均 completed/success。验证代码提交为79fecff6bfb498277101358b083f1fa08b87257f；后续只追加文档/证据。

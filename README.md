@@ -2,7 +2,7 @@
 
 AsterVM 的产品目标是可在 **Linux 与 Windows 宿主**上原生运行的桌面虚拟机软件。本包是在 v0.1.0 上扩展栈与控制流的开发基线：C++17 机器运行层、real16 有限指令解释器、命令行、单步桥、trace 和状态验收工具。
 
-当前实际能力：执行下列机器码、输出调试端口数据、导出状态和 RAM 差异。桌面管理界面、完整 PC 固件/设备、保护模式和客户操作系统启动属于后续里程碑。此包没有 Windows 原生实测记录，也没有 Windows 可执行文件；跨平台源码与构建入口已提供。
+当前实际能力：执行下列机器码、输出调试端口数据、导出状态和 RAM 差异。桌面管理界面、完整 PC 固件/设备、保护模式和客户操作系统启动属于后续里程碑。GitHub Actions 已在 Linux 和 Windows 原生构建并通过全部3个CTest目标；仓库不包含预编译Windows可执行文件，可从源码构建。
 
 ## 快速运行
 
@@ -64,7 +64,7 @@ python tools/verify.py --cli build/cmake/astervm_cli --load examples/demo.bin --
 ## 验证结果和来源
 
 - Linux GCC 13.3：48 组核心测试、9 项 CLI 集成测试通过。两组核心测试穷举了 131,072 个 8 位加减输入组合。
-- CMake/CTest：3 个测试目标通过；外部 QA 目标按明示 M0 范围判定。
+- CMake/CTest：本地Linux及GitHub Actions Linux/Windows均通过3个目标；外部QA按明示M0范围判定。
 - Genspark 框架自测：13/13 在此环境复跑通过。
 - 原生 AsterVM 单步接入 Genspark 原始 40 案例：**27 通过、13 unsupported**；M0 支持的 27 个案例全部通过。完整 40 项兼容尚未通过。完整失败列表保留在 evidence/，没有更改黄金预期或借用外部模拟器执行产品指令。
 

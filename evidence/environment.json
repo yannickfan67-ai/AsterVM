@@ -13,5 +13,5 @@
     "external_total": 40,
     "external_unsupported": 13
   },
-  "windows_native": "not locally tested; CI pending"
+  "windows_native": "GitHub Actions windows-latest: configure/build/3 CTest targets succeeded, run 39130913103"
 }
