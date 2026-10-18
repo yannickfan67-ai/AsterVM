@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ko">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<script>if(typeof window.process==="undefined"){window.process={env:{},browser:true,version:"v20.0.0",nextTick:function(fn){var a=[].slice.call(arguments,1);return setTimeout(function(){fn.apply(null,a)},0);}}}</script>
+		<script>
+			// Polyfill for bits-ui scroll event crash (Window.contains is missing)
+			if (typeof Window !== "undefined" && !Window.prototype.contains) {
+				Window.prototype.contains = function () {
+					return false;
+				};
+			}
+
+			// Prevent ReferenceErrors from Android WebView wrapper callbacks
+			if (typeof window !== "undefined") {
+				if (!window.onHide) window.onHide = function() { };
+				if (!window.onReady) window.onReady = function() { };
+			}
+
+			// Run before mode-watcher's module-level storage reads. Only theme keys
+			// may fall back to memory; auth and other storage failures must stay visible.
+			(function () {
+				try {
+					if (typeof window === "undefined") return;
+
+					var keys = {
+						"mode-watcher-mode": true,
+						"mode-watcher-theme": true
+					};
+					var fallback = Object.create(null);
+					var readUnavailable = false;
+
+					function isModeKey(key) {
+						return keys[String(key)] === true;
+					}
+
+					var storage;
+					var accessError;
+					try {
+						storage = window.localStorage;
+					} catch (error) {
+						accessError = error;
+					}
+					if (!storage) {
+						accessError = accessError || new Error("localStorage unavailable");
+						function unavailable() { throw accessError; }
+						// A denied getter cannot be repaired by patching Storage.prototype.
+						var memory = {
+							getItem: function (key) {
+								if (!isModeKey(key)) return unavailable();
+								return Object.prototype.hasOwnProperty.call(fallback, key) ? fallback[key] : null;
+							},
+							setItem: function (key, value) {
+								if (!isModeKey(key)) return unavailable();
+								fallback[key] = String(value);
+							},
+							removeItem: function (key) {
+								if (!isModeKey(key)) return unavailable();
+								delete fallback[key];
+							},
+							clear: unavailable,
+							key: unavailable
+						};
+						Object.defineProperty(memory, "length", { get: unavailable });
+						Object.defineProperty(window, "localStorage", { configurable: true, enumerable: true, value: memory });
+						return;
+					}
+					if (typeof Storage === "undefined") return;
+					var proto = Storage.prototype;
+					if (proto.__fileKiwiModeStoragePatch) return;
+					var getItem = proto.getItem;
+					var setItem = proto.setItem;
+					var removeItem = proto.removeItem;
+
+					Object.defineProperty(proto, "__fileKiwiModeStoragePatch", { value: true });
+
+					proto.getItem = function (key) {
+						if (this !== storage || !isModeKey(key)) return getItem.call(this, key);
+
+						try {
+							return Object.prototype.hasOwnProperty.call(fallback, key)
+								? fallback[key]
+								: getItem.call(this, key);
+						} catch {
+							readUnavailable = true;
+							return Object.prototype.hasOwnProperty.call(fallback, key) ? fallback[key] : null;
+						}
+					};
+
+					proto.setItem = function (key, value) {
+						if (this !== storage || !isModeKey(key)) return setItem.call(this, key, value);
+
+						var normalizedValue = String(value);
+						try {
+							setItem.call(this, key, normalizedValue);
+							if (readUnavailable) fallback[key] = normalizedValue;
+							else delete fallback[key];
+						} catch {
+							fallback[key] = normalizedValue;
+						}
+					};
+
+					proto.removeItem = function (key) {
+						if (this !== storage || !isModeKey(key)) return removeItem.call(this, key);
+
+						delete fallback[key];
+						try {
+							removeItem.call(this, key);
+						} catch {
+							fallback[key] = null;
+						}
+					};
+				} catch {}
+			})();
+		</script>
+		<!--12qhfyh--><meta name="ahrefs-site-verification" content="95d1128e3f9877be4553a21bf09b82ae49e780a1bebb1d8b83792fcfbc3e5177"/> <meta charset="UTF-8"/> <meta name="viewport" content="width=device-width,initial-scale=1.0"/> <link rel="icon" href="/_app/immutable/assets/logo.CPvgfnY8.svg"/> <link rel="apple-touch-icon" href="/apple-touch-icon.png"/> <meta name="naver-site-verification" content="737534e4286d7fac8dbcbdf26640e1a59b73d82c"/> <link rel="sitemap" href="/sitemap-index.xml"/><!----><!--1funsus--><!--[-1--><!--]--> <!----><script>(function setInitialMode({ defaultMode = "system", themeColors: themeColors2, darkClassNames: darkClassNames2 = ["dark"], lightClassNames: lightClassNames2 = [], defaultTheme = "", modeStorageKey: modeStorageKey2 = "mode-watcher-mode", themeStorageKey: themeStorageKey2 = "mode-watcher-theme" }) {
+  const rootEl = document.documentElement;
+  const mode = localStorage.getItem(modeStorageKey2) ?? defaultMode;
+  const theme = localStorage.getItem(themeStorageKey2) ?? defaultTheme;
+  const light = mode === "light" || mode === "system" && window.matchMedia("(prefers-color-scheme: light)").matches;
+  if (light) {
+    if (darkClassNames2.length) rootEl.classList.remove(...darkClassNames2.filter(Boolean));
+    if (lightClassNames2.length) rootEl.classList.add(...lightClassNames2.filter(Boolean));
+  } else {
+    if (lightClassNames2.length) rootEl.classList.remove(...lightClassNames2.filter(Boolean));
+    if (darkClassNames2.length) rootEl.classList.add(...darkClassNames2.filter(Boolean));
+  }
+  rootEl.style.colorScheme = light ? "light" : "dark";
+  if (themeColors2) {
+    const themeMetaEl = document.querySelector('meta[name="theme-color"]');
+    if (themeMetaEl) themeMetaEl.setAttribute("content", mode === "light" ? themeColors2.light : themeColors2.dark);
+  }
+  if (theme) {
+    rootEl.setAttribute("data-theme", theme);
+    localStorage.setItem(themeStorageKey2, theme);
+  }
+  localStorage.setItem(modeStorageKey2, mode);
+})({"defaultMode":"system","darkClassNames":["dark"],"lightClassNames":[],"defaultTheme":"","modeStorageKey":"mode-watcher-mode","themeStorageKey":"mode-watcher-theme"});</script><!----><!----><!--1obbz8--><meta name="robots" content="noindex"/><!----><!--gsrl61--><link rel="canonical" href="https://file.kiwi/e7972a82"/> <meta name="language" content="en"/> <meta name="description" content="Upload files online for free with no file size limit. Get a shareable link instantly, no signup required, with end-to-end encryption and auto-expiring files."/> <!--[-1--><!--]--> <!--[-1--><!--]--> <meta name="robots" content="index,follow"/> <meta name="url" content="https://file.kiwi/e7972a82"/> <!--[--><!--]--> <meta property="og:title" content="file.kiwi"/> <meta property="og:site_name" content="file.kiwi"/> <meta property="og:description" content="Upload files online for free with no file size limit. Get a shareable link instantly, no signup required, with end-to-end encryption and auto-expiring files."/> <meta property="og:url" content="https://file.kiwi/e7972a82"/> <meta property="og:type" content="website"/> <meta property="og:locale" content="en"/> <!--[-1--><!--]--> <!--[--><!--[0--><meta property="og:image" content="https://file.kiwi/og-room.png"/><!--]--> <!--[0--><meta property="og:image:secure_url" content="https://file.kiwi/og-room.png"/><!--]--> <!--[0--><meta property="og:image:type" content="image/png"/><!--]--> <!--[0--><meta property="og:image:width" content="1200"/><!--]--> <!--[0--><meta property="og:image:height" content="630"/><!--]--> <!--[-1--><!--]--><!--]--> <meta name="twitter:description" content="Upload files online for free with no file size limit. Get a shareable link instantly, no signup required, with end-to-end encryption and auto-expiring files."/> <meta name="twitter:title" content="file.kiwi"/> <!--[-1--><!--]--> <!--[-1--><!--]--> <!--[-1--><!--]--> <!--[-1--><!--]--> <meta name="twitter:card" content="summary_large_image"/> <!--[--><!--]--><!----><title>file.kiwi</title>
+		<link href="/_app/immutable/assets/0.DLEIVPzX.css" rel="stylesheet">
+		<link href="/_app/immutable/assets/38.CV-KWLNP.css" rel="stylesheet">
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[0--><!--[--><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"><!--[-1--><!--]--></section><!----> <!--[-1--><!--]--><!----> <div class="body-large light" style="background-color:var(--md-sys-color-background); min-height: 100vh;"><!--[0--><!--[--><!--[-1--><!--[--><!----> <div class="[--header-height:calc(--spacing(14))]"><!--[-1--><!--]--></div> <!--[--><!--[--><!--[--><!--[--><!--[--><!--[-1--><!--]--><!--]--><!--]--><!--]--><!----><!--]--><!--]--> <!--[--><!--[--><!--[--><!--[--><!--[--><!--[-1--><!--]--><!--]--><!--]--><!--]--><!----><!--]--><!--]--><!----> <div id="dodo-inline-checkout"></div> <!--[--><!--[--><!--[--><!--[--><!--[--><!--[-1--><!--]--><!--]--><!--]--><!--]--><!----><!--]--><!--]--> <!--[--><!--[--><!--[--><!--[--><!--[--><!--[-1--><!--]--><!--]--><!--]--><!--]--><!----><!--]--><!--]--> <!--[--><!--[--><!--[--><!--[--><!--[--><!--[-1--><!--]--><!--]--><!--]--><!--]--><!----><!--]--><!--]--><!----> <dialog id="my-dialog" class="backdrop:bg-opacity-50 m-auto w-full max-w-md rounded-md border bg-background p-2 shadow-lg backdrop:bg-foreground/50"><form method="dialog"><div class="text-center break-keep" style="text-wrap-style: balance;"><div class="text-4xl">✔️</div> <h3 class="py-4 text-lg leading-6 font-medium text-foreground">다운로드 링크가 클립보드에 복사되었습니다.</h3> <h2 class="text-base font-bold">원하시는 곳에 붙여넣기 해주세요. (Ctrl+V , ⌘+V)</h2> <div class="mt-2 p-3"><p class="text-sm text-muted-foreground">파일은 암호화되어 file.kiwi에 안전하게 업로드되며 90시간 후 자동으로 완전히 삭제됩니다. 큰 파일은 업로드에 시간이 걸릴 수 있지만, 완료될 때까지 기다릴 필요는 없습니다. 업로드 중에도 링크를 받은 사람은 즉시 다운로드를 시작할 수 있습니다. 파일 크기가 클수록 무료 다운로드 가능 시간(6~48시간)은 짧아집니다. <a target="_blank" class="underline" href="price#detail">더보기</a></p></div> <div class="items-center px-4 py-3"><button id="confirm-dialog-button" value="ok" class="w-full rounded-md bg-primary px-4 py-2 text-base font-medium text-primary-foreground shadow-sm hover:bg-primary/90 focus:ring-2 focus:ring-ring focus:outline-none">확인</button></div></div></form></dialog><!--]--><!--]--><!----><!--]--><!--]--><!----></div><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_2ygv2v = {
+						base: "",
+						env: {"PUBLIC_GOOGLE_APPS_SCRIPT_DEPLOYMENT_ID":"AKfycbyUrYTey65Y_N2ikCTXx4-kupZorNiCP96Ihvf-Ro2RL9U_bT0rTNPwrkzIWBP4yIRr","PUBLIC_GOOGLE_CONNECT_ORIGIN":"https://connect.file.kiwi","PUBLIC_GOOGLE_OAUTH_CLIENT_ID":"776405083546-556rgue2j9enp307ajs58n4d62dlcasm.apps.googleusercontent.com","PUBLIC_GOOGLE_PICKER_API_KEY":"AIzaSyDCBCCZ9SGeaN88PE-7VebxVvLsC4oMm1U"}
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("/_app/immutable/entry/start.BxJOZSzP.js"),
+						import("/_app/immutable/entry/app.DUfBo9j_.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 7, 38],
+							data: [{type:"data",data:{hasBrowserSessionCookies:true,user:null,hasSessionSnapshot:true,country:"SG",currency:"SGD",ppp:.65,csrfToken:"lhvvY6B49lUlWctNk0lwaoTn7yJi5-B5ehIxuljT5tc"},uses:{dependencies:["auth:session"]}},null,{type:"data",data:{locale:"ko",room:{files:{},info:{ver:2,ua:"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",ref:"",ske:"Zn1sGdK2i67fsIhaPUG4kwABAAAAItE6GragODke2owUllY_FW64VL2kcrfk58eMyWgLDIVrFCojCzqp",title:"10/18 WebFolder",read:true,write:true,private:false,uploadtime:0,recent:1792304096935,time:1792304096935,timer:0,limit:0,apiCreated:false,apiEmpty:false,ownerClaimedAt:0,ownerlessCleanupAt:0,publicRead:true,publicWrite:true,browserUploadAllowed:false,mode:"share"},fileCount:0},isMobile:false,user:null,currency:"SGD",isBase:false,googleFormsConnected:false,requiresOwnerLogin:false,uploadSession:null,legacyRoomCreationWarning:false},uses:{dependencies:["auth:session"],params:["roomid"],parent:1,url:1}}],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>
