@@ -176,6 +176,145 @@ int main() {
         const auto d=decode16(before,f.machine.bus());
         require(d.length==3 && d.immediate==0x1234 && f.machine.state()==before,"decode contract");
     });
+    test("stack_all_registers_ss_and_high_bits",[]{
+        for(unsigned r=0;r<8;++r) if(r!=SP) {
+            Fixture f{std::uint8_t(0x50+r),std::uint8_t(0x58+r)};
+            f.machine.state().gpr[r]=0xfeed1234; f.machine.state().gpr[SP]=0xabcd8000;
+            f.machine.state().segment[SS]=0x1000; f.machine.state().segment[DS]=0x2000;
+            f.machine.state().eflags=2|CF|DF|OF;
+            const auto pushed=f.machine.step(f.core);
+            require(pushed.retired && pushed.writes.size()==2,"push trace");
+            require(f.machine.bus().read8(0x17ffe)==0x34 && f.machine.bus().read8(0x17fff)==0x12,"SS little endian");
+            f.machine.state().gpr[r]=0xbeef0000;
+            require(f.machine.step(f.core).retired,"pop retire");
+            require(f.machine.state().gpr[r]==0xbeef1234 && f.machine.state().gpr[SP]==0xabcd8000,"register high bits");
+            require(f.machine.state().eflags==(2|CF|DF|OF),"stack flags changed");
+        }
+    });
+    test("push_sp_captures_original_286plus_value",[]{
+        Fixture f{0x54}; f.machine.state().gpr[SP]=0xfeed8000;
+        require(f.machine.step(f.core).retired,"push SP retire");
+        require(f.machine.state().gpr[SP]==0xfeed7ffe && f.machine.bus().read8(0x7ffe)==0 &&
+                f.machine.bus().read8(0x7fff)==0x80,"PUSH SP original value");
+    });
+    test("pop_sp_overrides_implicit_increment",[]{
+        Fixture f{0x5c}; f.machine.state().gpr[SP]=0xfeed8000;
+        f.machine.bus().load(0x8000,{0x34,0x12});
+        require(f.machine.step(f.core).retired && f.machine.state().gpr[SP]==0xfeed1234,"POP SP ordering");
+    });
+    test("push_imm8_all_256_sign_extensions",[]{
+        Fixture f{0x6a,0};
+        for(unsigned b=0;b<256;++b) {
+            f.machine.reset(); f.machine.bus().load(0x7c01,{std::uint8_t(b)});
+            set_reg16(f.machine.state(),SP,0x8000);
+            require(f.machine.step(f.core).retired,"push imm8 retire");
+            require(f.machine.bus().read8(0x7ffe)==b && f.machine.bus().read8(0x7fff)==(b<128?0:255),"sign extension");
+        }
+    });
+    test("push_imm16_has_word_width",[]{
+        Fixture f{0x68,0x00,0x80,0x5b}; set_reg16(f.machine.state(),SP,0x8000);
+        require(f.machine.step(f.core).retired && f.machine.step(f.core).retired,"word push/pop");
+        require(reg16(f.machine.state(),BX)==0x8000 && reg16(f.machine.state(),SP)==0x8000,"word push value");
+    });
+    test("call_ret_runs_real_machine_code",[]{
+        Fixture f{0xbc,0x00,0x80,0xb8,0x34,0x12,0xe8,0x01,0x00,0xf4,
+                  0x50,0xb8,0,0,0x5b,0xc3};
+        const auto r=f.run();
+        require(r.stop==Stop::Halted && r.steps==8,"call program steps");
+        require(reg16(f.machine.state(),BX)==0x1234 && reg16(f.machine.state(),AX)==0 &&
+                reg16(f.machine.state(),SP)==0x8000 && f.machine.state().eip==0x7c0a,"call result");
+        require(f.machine.bus().read8(0x7ffe)==0x09 && f.machine.bus().read8(0x7fff)==0x7c,"return address");
+    });
+    test("call_negative_displacement",[]{
+        Fixture f{0xe8,0xfa,0xff,0xf4}; set_reg16(f.machine.state(),SP,0x8000);
+        f.machine.bus().load(0x7bfd,{0xc3});
+        require(f.run().steps==3 && f.machine.state().halted && reg16(f.machine.state(),SP)==0x8000,"negative call");
+    });
+    test("nested_near_calls_lifo",[]{
+        Fixture f{0xe8,0x01,0x00,0xf4,0xe8,0x01,0x00,0xc3,0x40,0xc3};
+        set_reg16(f.machine.state(),SP,0x8000);
+        require(f.run().steps==6 && f.machine.state().halted && reg16(f.machine.state(),AX)==1 &&
+                reg16(f.machine.state(),SP)==0x8000,"nested call return");
+    });
+    test("ret_imm16_cleans_stack_with_wrap",[]{
+        Fixture f{0xc2,0x04,0x00}; f.machine.state().gpr[SP]=0xfeedfffc;
+        f.machine.bus().load(0xfffc,{0x10,0x32});
+        require(f.machine.step(f.core).retired && f.machine.state().eip==0x3210 &&
+                f.machine.state().gpr[SP]==0xfeed0002,"RET imm16 cleanup");
+    });
+    test("push_sp_zero_wraps_to_fffe",[]{
+        Fixture f{0x50}; set_reg16(f.machine.state(),AX,0x1234);
+        require(f.machine.step(f.core).retired && reg16(f.machine.state(),SP)==0xfffe &&
+                f.machine.bus().read8(0xfffe)==0x34 && f.machine.bus().read8(0xffff)==0x12,"SP zero wrap");
+    });
+    test("pop_fffe_wraps_sp_to_zero",[]{
+        Fixture f{0x58}; set_reg16(f.machine.state(),SP,0xfffe); f.machine.bus().load(0xfffe,{0x34,0x12});
+        require(f.machine.step(f.core).retired && reg16(f.machine.state(),SP)==0 &&
+                reg16(f.machine.state(),AX)==0x1234,"SP pop wrap");
+    });
+    test("stack_a20_off_physical_wrap",[]{
+        Fixture f{0x50}; f.machine.state().segment[SS]=0xffff;
+        set_reg16(f.machine.state(),SP,0x12); set_reg16(f.machine.state(),AX,0x1234);
+        require(f.machine.step(f.core).retired && f.machine.bus().read8(0)==0x34 &&
+                f.machine.bus().read8(1)==0x12,"stack A20 wrap");
+    });
+    test("push_word_crossing_stack_segment_faults",[]{
+        Fixture f{0x50}; set_reg16(f.machine.state(),SP,1); const auto before=f.machine.state();
+        const auto record=f.machine.step(f.core);
+        require(record.result.outcome==Outcome::Fault && f.machine.state()==before &&
+                record.writes.empty() && f.machine.bus().changes().empty(),"stack limit rollback");
+    });
+    test("pop_word_crossing_stack_segment_faults",[]{
+        Fixture f{0x58}; set_reg16(f.machine.state(),SP,0xffff); const auto before=f.machine.state();
+        const auto record=f.machine.step(f.core);
+        require(record.result.outcome==Outcome::Fault && f.machine.state()==before,"pop stack limit rollback");
+    });
+    test("partial_push_bus_fault_restores_first_byte_and_cpu",[]{
+        Machine m(16); Interpreter16 core; m.reset(0,0); m.bus().load(0,{0x50}); m.bus().load(15,{0x55});
+        set_reg16(m.state(),AX,0x1234); set_reg16(m.state(),SP,17); const auto before=m.state();
+        const auto record=m.step(core);
+        require(record.result.outcome==Outcome::Fault && m.state()==before && m.bus().read8(15)==0x55 &&
+                record.writes.empty() && m.bus().changes().empty() && m.retired()==0,"partial write rollback");
+    });
+    test("partial_ret_read_bus_fault_restores_cpu",[]{
+        Machine m(16); Interpreter16 core; m.reset(0,0); m.bus().load(0,{0xc3}); m.bus().load(15,{0x55});
+        set_reg16(m.state(),SP,15); const auto before=m.state(); const auto record=m.step(core);
+        require(record.result.outcome==Outcome::Fault && m.state()==before && record.writes.empty(),"partial RET read rollback");
+    });
+    test("call_fetch_ip_wrap_pushes_wrapped_return",[]{
+        Machine m; Interpreter16 core; m.reset(0,0xfffe); m.bus().load(0xfffe,{0xe8,0}); m.bus().load(0,{0});
+        set_reg16(m.state(),SP,0x100);
+        require(m.step(core).retired && m.state().eip==1 && m.bus().read8(0xfe)==1 &&
+                m.bus().read8(0xff)==0,"wrapped call return address");
+    });
+    test("flag_control_changes_only_target_bit",[]{
+        for(const auto op:{0xf5,0xf8,0xf9,0xfc,0xfd}) for(unsigned flags=0;flags<4;++flags) {
+            Fixture f{std::uint8_t(op)};
+            const auto before=0xf00008d6u|((flags&1)?CF:0u)|((flags&2)?DF:0u);
+            f.machine.state().eflags=before;
+            auto expected=before;
+            if(op==0xf5) expected^=CF;
+            if(op==0xf8) expected&=~CF;
+            if(op==0xf9) expected|=CF;
+            if(op==0xfc) expected&=~DF;
+            if(op==0xfd) expected|=DF;
+            require(f.machine.step(f.core).retired && f.machine.state().eflags==expected,"flag control preservation");
+        }
+    });
+    test("loop_family_cx_zf_and_flags_matrix",[]{
+        for(unsigned op=0xe0;op<=0xe3;++op) for(const unsigned cx:{0,1,2,65535}) for(unsigned z=0;z<2;++z) {
+            Fixture f{std::uint8_t(op),0xfe}; f.machine.state().gpr[CX]=0xabcd0000|cx;
+            const auto flags=2|CF|DF|OF|(z?ZF:0u); f.machine.state().eflags=flags;
+            const auto next_cx=op==0xe3?cx:((cx-1)&65535);
+            const bool taken=op==0xe3?cx==0:(next_cx!=0 && (op==0xe2 || (op==0xe1?z!=0:z==0)));
+            require(f.machine.step(f.core).retired && f.machine.state().gpr[CX]==(0xabcd0000|next_cx) &&
+                    f.machine.state().eip==(taken?0x7c00:0x7c02) && f.machine.state().eflags==flags,"LOOP/JCXZ matrix");
+        }
+    });
+    test("loop_zero_cx_budget_is_bounded",[]{
+        Fixture f{0xe2,0xfe}; const auto r=f.run(5);
+        require(r.stop==Stop::Budget && r.steps==5 && reg16(f.machine.state(),CX)==65531,"zero CX loop budget");
+    });
     std::cout<<passed<<" passed, "<<failed<<" failed; includes 131072 exhaustive arithmetic vectors\n";
     return failed?1:0;
 }

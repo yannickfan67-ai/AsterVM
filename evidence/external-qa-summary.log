@@ -1,0 +1,25 @@
+{
+  "backend": "native AsterVM Interpreter16; no external emulator backend",
+  "full_corpus_total": 40,
+  "full_corpus_passed": 27,
+  "full_corpus_failed": 13,
+  "m0_profile_total": 27,
+  "m0_profile_passed": 27,
+  "m0_profile_failed": [],
+  "out_of_scope_unsupported": [
+    "mov_bx_from_ax",
+    "xchg_ax_bx",
+    "xor_zero",
+    "and_sign",
+    "or_parity",
+    "test_preserves_operand",
+    "mov_store_ds_offset",
+    "mov_load_ds_offset",
+    "mov_load_nonzero_ds",
+    "mov_load_bx_si",
+    "mov_bp_defaults_ss",
+    "neg_word_minimum",
+    "not_preserves_flags"
+  ],
+  "unexpected_out_of_scope_failures": []
+}

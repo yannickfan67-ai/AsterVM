@@ -1,17 +1,17 @@
 {
   "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "machine": "x86_64",
   "python": "3.12.14",
   "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
-  "windows_native_tested": false,
-  "cpu_backend": "AsterVM native C++ Interpreter16",
-  "core_test_groups": 28,
-  "exhaustive_arithmetic_vectors": 131072,
-  "cli_tests": 8,
-  "external_qa_framework_tests": 13,
-  "external_corpus": {
-    "total": 40,
-    "passed": 16,
-    "unsupported": 24
+  "sanitizers": "address,undefined; detect_leaks=0",
+  "contract": "astervm.m0.v2",
+  "tests": {
+    "core_groups": 48,
+    "cli_tests": 9,
+    "ctest_targets": 3,
+    "external_passed": 27,
+    "external_total": 40,
+    "external_unsupported": 13
   },
-  "ctest_targets": 3
+  "windows_native": "not locally tested; CI pending"
 }

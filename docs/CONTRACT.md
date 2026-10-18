@@ -1,4 +1,4 @@
-# ASTER-CONTRACT-001 — astervm.m0.v1
+# ASTER-CONTRACT-001 — astervm.m0.v2
 
 ## 模式与初态
 
@@ -12,7 +12,7 @@
 ## 三个边界
 
 1. Qwen：`DecodedInstruction decode16(const CpuState&, Bus&)`。只从 RAM 取指，不能写状态、内存或访问设备端口；返回操作、原始字节、长度、宽度、寄存器、立即数及端口形式。
-2. Manus：`StepResult execute16(CpuState&, Bus&, const DecodedInstruction&)`。计算下一状态、旗标和数据访问。新增编码/操作须同时更新契约版本、支持矩阵和独立测试。
+2. GPT-6（Manus 额度暂停期间维护）：`StepResult execute16(CpuState&, Bus&, const DecodedInstruction&)`。计算下一状态、旗标和数据访问。新增编码/操作须同时更新契约版本、支持矩阵和独立测试。
 3. GPT-6：`Machine::step(Stepper&)`。包住整条指令，提交成功结果，回滚失败步骤，并形成 trace。`Stepper` 可接不同候选 CPU 后端，公共状态与语义保持一致。
 
 `include/astervm/core.hpp` 是本版实际可编译的接口源。不是用文字声明替代接口文件。
@@ -42,3 +42,13 @@ trace `schema=astervm.trace.v1`：before/after、outcome、retired、bytes、wri
 Genspark 适配器只收到 id/mode/code/initial/budget，绝不接收 expected。Python 将输入状态与 1 MiB RAM 编成 `AVMSTEP1` 小端测试帧；原生 `astervm_step` 执行一次真实 `Machine::step` 并返回全部 RAM。Python 只负责格式转换。该测试帧是适配协议，不是虚拟磁盘格式。
 
 失败样例须附：契约版本、初始状态、机器码、步骤预算、有效旗标 mask、RAM 预期差异、实际快照/trace、构建与运行命令。外部模型自测与产品核心结果分别标记。
+
+## v0.2 栈与控制流增量
+
+公共状态、Bus 字节接口、AVMSTEP1 和 JSON schema 不变；Operation 在末尾追加7项，原枚举值及 DecodedInstruction 布局保持。contract 升为 astervm.m0.v2，所有参与模块须重新编译。
+
+- PUSH/POP r16、PUSH imm16/imm8：栈使用 SS:SP，小端 word；imm8 符号扩展到16位；写入 SP/寄存器保留32位存储的高16位。PUSH SP 使用286及以后的原SP值，POP SP 先完成隐含增量，再写目标。无完整CPU型号声明。
+- SP 的加减按16位回绕。完整word访问需位于 SS:0000–FFFF；word起点为FFFF时返回 M0 fault、CPU/RAM/trace回滚，不把第二字节折回 SS:0000。A20-off 物理地址转换仍逐字节执行。该fault不代表已经实现#SS投递或双重故障/关机流程。
+- E8 推入下一条指令的16位返回IP，再执行有符号rel16；C3弹出IP，C2再按无符号imm16清理栈。不处理far return或保护模式权限。
+- CLC/STC/CMC只修改CF，CLD/STD只修改DF。
+- E0/E1/E2先按16位递减CX，再按CX非零及ZF判断；E3只判断CX是否为零、不递减。所有LOOP/JCXZ保留FLAGS和ECX高16位，rel8按有符号位移。

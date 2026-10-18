@@ -11,6 +11,9 @@ PROFILE={
     "sub_word_borrow","sub_word_signed_overflow","cmp_equal_preserves_ax",
     "inc_preserves_carry","dec_preserves_carry","jmp_short_forward","jz_taken",
     "jz_not_taken","jnz_taken",
+    "clc_clears_only_carry","stc_sets_only_carry","cmc_toggles_carry",
+    "cld_clears_direction","std_sets_direction","push_ax","pop_bx",
+    "call_relative_pushes_return","ret_pops_ip","loop_taken","loop_fallthrough",
 }
 def main():
     parser=argparse.ArgumentParser()

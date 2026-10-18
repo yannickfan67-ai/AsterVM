@@ -86,5 +86,19 @@ class CliTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             self.assertEqual(self.run_cli("--demo","--trace",directory).returncode,2)
 
+    def test_call_stack_image_and_trace(self):
+        with tempfile.TemporaryDirectory() as directory:
+            trace=Path(directory)/"stack.ndjson"
+            result=self.run_cli("--load",ROOT/"examples/stack-call.bin","--trace",trace)
+            self.assertEqual(result.returncode,0,result.stderr)
+            snapshot=json.loads(result.stdout)
+            self.assertEqual((snapshot["contract"],snapshot["stop"],snapshot["steps"]),("astervm.m0.v2","halted",8))
+            state=snapshot["state"]
+            self.assertEqual((state["eax"],state["ebx"],state["esp"],state["eip"]),(0,0x1234,0x8000,0x7c0a))
+            records=[json.loads(line) for line in trace.read_text().splitlines()]
+            self.assertEqual(len(records),8)
+            self.assertEqual([w["address"] for w in records[2]["writes"]],[0x7ffe,0x7fff])
+            self.assertEqual(records[6]["after"]["eip"],0x7c09)
+
 if __name__=="__main__":
     unittest.main(verbosity=2)

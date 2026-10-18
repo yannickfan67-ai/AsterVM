@@ -1,8 +1,8 @@
 {
   "label": "astervm",
   "total": 40,
-  "passed": 16,
-  "failed": 24,
+  "passed": 27,
+  "failed": 13,
   "results": [
     {
       "id": "mov_ax_imm16",
@@ -216,168 +216,38 @@
     },
     {
       "id": "clc_clears_only_carry",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4097,
-          "actual": 4096
-        },
-        {
-          "field": "flags",
-          "mask": 65535,
-          "expected": 1026,
-          "actual": 1027
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "stc_sets_only_carry",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4097,
-          "actual": 4096
-        },
-        {
-          "field": "flags",
-          "mask": 65535,
-          "expected": 3,
-          "actual": 2
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "cmc_toggles_carry",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4097,
-          "actual": 4096
-        },
-        {
-          "field": "flags",
-          "mask": 65535,
-          "expected": 2,
-          "actual": 3
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "cld_clears_direction",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4097,
-          "actual": 4096
-        },
-        {
-          "field": "flags",
-          "mask": 65535,
-          "expected": 2,
-          "actual": 1026
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "std_sets_direction",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4097,
-          "actual": 4096
-        },
-        {
-          "field": "flags",
-          "mask": 65535,
-          "expected": 1026,
-          "actual": 2
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "push_ax",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.sp",
-          "expected": 32766,
-          "actual": 32768
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4097,
-          "actual": 4096
-        },
-        {
-          "field": "memory",
-          "mismatch_count": 2,
-          "first_addresses": [
-            32766,
-            32767
-          ]
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "pop_bx",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.bx",
-          "expected": 22136,
-          "actual": 0
-        },
-        {
-          "field": "registers.sp",
-          "expected": 32770,
-          "actual": 32768
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4097,
-          "actual": 4096
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "jmp_short_forward",
@@ -401,40 +271,13 @@
     },
     {
       "id": "loop_taken",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.cx",
-          "expected": 1,
-          "actual": 2
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "loop_fallthrough",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.cx",
-          "expected": 0,
-          "actual": 1
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4098,
-          "actual": 4096
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "mov_store_ds_offset",
@@ -546,53 +389,13 @@
     },
     {
       "id": "call_relative_pushes_return",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.sp",
-          "expected": 32766,
-          "actual": 32768
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4101,
-          "actual": 4096
-        },
-        {
-          "field": "memory",
-          "mismatch_count": 2,
-          "first_addresses": [
-            32766,
-            32767
-          ]
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "ret_pops_ip",
-      "pass": false,
-      "differences": [
-        {
-          "field": "reason",
-          "expected": "step",
-          "actual": "unsupported"
-        },
-        {
-          "field": "registers.sp",
-          "expected": 32770,
-          "actual": 32768
-        },
-        {
-          "field": "registers.ip",
-          "expected": 4660,
-          "actual": 4096
-        }
-      ]
+      "pass": true,
+      "differences": []
     },
     {
       "id": "neg_word_minimum",

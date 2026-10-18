@@ -8,7 +8,7 @@
 #include <vector>
 
 namespace astervm {
-constexpr const char* contract_version = "astervm.m0.v1";
+constexpr const char* contract_version = "astervm.m0.v2";
 enum Register : std::size_t { AX, CX, DX, BX, SP, BP, SI, DI };
 enum Segment : std::size_t { ES, CS, SS, DS, FS, GS };
 enum Flag : std::uint32_t { CF=1, PF=4, AF=16, ZF=64, SF=128, IF=512, DF=1024, OF=2048 };
@@ -66,7 +66,8 @@ private:
 };
 
 enum class Operation { Unsupported, MovImmediate, Add, Sub, Compare, Increment,
-    Decrement, Jump, JumpZero, JumpNotZero, Nop, Halt, LoadAl, StoreAl, Input, Output };
+    Decrement, Jump, JumpZero, JumpNotZero, Nop, Halt, LoadAl, StoreAl, Input, Output,
+    PushRegister, PopRegister, PushImmediate, CallNear, ReturnNear, FlagControl, Loop };
 struct DecodedInstruction {
     Operation operation=Operation::Unsupported;
     std::array<std::uint8_t,15> bytes{};
@@ -82,7 +83,7 @@ struct StepResult {
 };
 // Qwen owns decode16; it must not mutate state, RAM or ports.
 DecodedInstruction decode16(const CpuState&, Bus&);
-// Manus owns execute16; Machine supplies transaction/rollback boundaries.
+// GPT-6 maintains execute16 during Manus's quota pause; Machine owns rollback.
 StepResult execute16(CpuState&, Bus&, const DecodedInstruction&);
 class Stepper {
 public:

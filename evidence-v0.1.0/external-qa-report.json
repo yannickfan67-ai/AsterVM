@@ -1,0 +1,641 @@
+{
+  "label": "astervm",
+  "total": 40,
+  "passed": 16,
+  "failed": 24,
+  "results": [
+    {
+      "id": "mov_ax_imm16",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "mov_al_preserves_ah",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "mov_ah_preserves_al",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "mov_bx_from_ax",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.bx",
+          "expected": 17767,
+          "actual": 0
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4098,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "xchg_ax_bx",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 8738,
+          "actual": 4369
+        },
+        {
+          "field": "registers.bx",
+          "expected": 4369,
+          "actual": 8738
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4097,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "nop_preserves_state",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "add_word_carry_zero",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "add_word_signed_overflow",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "add_byte_auxiliary_carry",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "sub_word_borrow",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "sub_word_signed_overflow",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "cmp_equal_preserves_ax",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "inc_preserves_carry",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "dec_preserves_carry",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "xor_zero",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 4660
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4098,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 2245,
+          "expected": 68,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "and_sign",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 32768,
+          "actual": 65535
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4099,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 2245,
+          "expected": 132,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "or_parity",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 3,
+          "actual": 0
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4099,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 2245,
+          "expected": 4,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "test_preserves_operand",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4099,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 2245,
+          "expected": 68,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "clc_clears_only_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4097,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 65535,
+          "expected": 1026,
+          "actual": 1027
+        }
+      ]
+    },
+    {
+      "id": "stc_sets_only_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4097,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 65535,
+          "expected": 3,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "cmc_toggles_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4097,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 65535,
+          "expected": 2,
+          "actual": 3
+        }
+      ]
+    },
+    {
+      "id": "cld_clears_direction",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4097,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 65535,
+          "expected": 2,
+          "actual": 1026
+        }
+      ]
+    },
+    {
+      "id": "std_sets_direction",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4097,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 65535,
+          "expected": 1026,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "push_ax",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.sp",
+          "expected": 32766,
+          "actual": 32768
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4097,
+          "actual": 4096
+        },
+        {
+          "field": "memory",
+          "mismatch_count": 2,
+          "first_addresses": [
+            32766,
+            32767
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pop_bx",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.bx",
+          "expected": 22136,
+          "actual": 0
+        },
+        {
+          "field": "registers.sp",
+          "expected": 32770,
+          "actual": 32768
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4097,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "jmp_short_forward",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "jz_taken",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "jz_not_taken",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "jnz_taken",
+      "pass": true,
+      "differences": []
+    },
+    {
+      "id": "loop_taken",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.cx",
+          "expected": 1,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "loop_fallthrough",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.cx",
+          "expected": 0,
+          "actual": 1
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4098,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "mov_store_ds_offset",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4099,
+          "actual": 4096
+        },
+        {
+          "field": "memory",
+          "mismatch_count": 2,
+          "first_addresses": [
+            8192,
+            8193
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mov_load_ds_offset",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 51966,
+          "actual": 0
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4099,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "mov_load_nonzero_ds",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 17185,
+          "actual": 0
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4099,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "mov_load_bx_si",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 39612,
+          "actual": 0
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4098,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "mov_bp_defaults_ss",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 22136,
+          "actual": 0
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4099,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "call_relative_pushes_return",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.sp",
+          "expected": 32766,
+          "actual": 32768
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4101,
+          "actual": 4096
+        },
+        {
+          "field": "memory",
+          "mismatch_count": 2,
+          "first_addresses": [
+            32766,
+            32767
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ret_pops_ip",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.sp",
+          "expected": 32770,
+          "actual": 32768
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4660,
+          "actual": 4096
+        }
+      ]
+    },
+    {
+      "id": "neg_word_minimum",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4098,
+          "actual": 4096
+        },
+        {
+          "field": "flags",
+          "mask": 2261,
+          "expected": 2181,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "not_preserves_flags",
+      "pass": false,
+      "differences": [
+        {
+          "field": "reason",
+          "expected": "step",
+          "actual": "unsupported"
+        },
+        {
+          "field": "registers.ax",
+          "expected": 61680,
+          "actual": 3855
+        },
+        {
+          "field": "registers.ip",
+          "expected": 4098,
+          "actual": 4096
+        }
+      ]
+    }
+  ]
+}

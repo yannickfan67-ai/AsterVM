@@ -25,6 +25,27 @@ std::int32_t displacement(std::uint16_t value, unsigned width) {
     return width==8?(value<128?std::int32_t(value):std::int32_t(value)-256):
         (value<32768?std::int32_t(value):std::int32_t(value)-65536);
 }
+// Ordinary real16 stack with a 64 KiB segment limit. Do not wrap a word's
+// second byte to SS:0000: the full word must fit, even though SP arithmetic
+// itself wraps. Architectural exception delivery is outside this M0 core.
+void check_stack_word(std::uint16_t offset) {
+    if(offset==0xffff) throw std::out_of_range("real16 stack word exceeds segment limit");
+}
+void push16(CpuState& state, Bus& bus, std::uint16_t value) {
+    const auto sp=std::uint16_t(reg16(state,SP)-2);
+    check_stack_word(sp);
+    bus.write8(real_address(state.segment[SS],sp),std::uint8_t(value));
+    bus.write8(real_address(state.segment[SS],std::uint16_t(sp+1)),std::uint8_t(value>>8));
+    set_reg16(state,SP,sp);
+}
+std::uint16_t pop16(CpuState& state, Bus& bus) {
+    const auto sp=reg16(state,SP);
+    check_stack_word(sp);
+    const auto lo=bus.read8(real_address(state.segment[SS],sp));
+    const auto hi=bus.read8(real_address(state.segment[SS],std::uint16_t(sp+1)));
+    set_reg16(state,SP,std::uint16_t(sp+2));
+    return std::uint16_t(lo|(std::uint16_t(hi)<<8));
+}
 }
 StepResult execute16(CpuState& state, Bus& bus, const DecodedInstruction& d) {
     StepResult result; result.instruction=d;
@@ -33,6 +54,42 @@ StepResult execute16(CpuState& state, Bus& bus, const DecodedInstruction& d) {
     }
     state.eip=std::uint16_t(state.eip+d.length);
     switch(d.operation) {
+    case Operation::PushRegister:
+        // Evaluate the operand before changing SP (286+ PUSH SP semantics).
+        push16(state,bus,reg16(state,d.reg)); break;
+    case Operation::PopRegister: {
+        const auto value=pop16(state,bus);
+        // POP SP writes its destination after the implicit increment.
+        set_reg16(state,d.reg,value); break;
+    }
+    case Operation::PushImmediate: push16(state,bus,d.immediate); break;
+    case Operation::CallNear:
+        push16(state,bus,std::uint16_t(state.eip));
+        state.eip=std::uint16_t(std::int32_t(state.eip)+displacement(d.immediate,16)); break;
+    case Operation::ReturnNear:
+        state.eip=pop16(state,bus);
+        set_reg16(state,SP,std::uint16_t(reg16(state,SP)+d.immediate)); break;
+    case Operation::FlagControl:
+        switch(d.immediate) {
+        case 0xf5: state.eflags^=CF; break;
+        case 0xf8: state.eflags&=~CF; break;
+        case 0xf9: state.eflags|=CF; break;
+        case 0xfc: state.eflags&=~DF; break;
+        case 0xfd: state.eflags|=DF; break;
+        default: throw std::invalid_argument("invalid flag-control operation");
+        }
+        break;
+    case Operation::Loop: {
+        bool taken;
+        if(d.reg==3) taken=reg16(state,CX)==0; // JCXZ never decrements CX.
+        else {
+            set_reg16(state,CX,std::uint16_t(reg16(state,CX)-1));
+            taken=reg16(state,CX)!=0 && (d.reg==2 ||
+                (d.reg==1 && (state.eflags&ZF)) || (d.reg==0 && !(state.eflags&ZF)));
+        }
+        if(taken) state.eip=std::uint16_t(std::int32_t(state.eip)+displacement(d.immediate,8));
+        break;
+    }
     case Operation::MovImmediate:
         if(d.width==8) set_reg8(state,d.reg,std::uint8_t(d.immediate));
         else set_reg16(state,d.reg,d.immediate);
