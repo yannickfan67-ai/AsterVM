@@ -1,0 +1,10 @@
+{
+  "schema": "astervm.snapshot.v1",
+  "stop": "halted",
+  "steps": 25,
+  "tty": "AsterVM M0\r\n",
+  "state": {
+    "eip": 31793,
+    "halted": true
+  }
+}
