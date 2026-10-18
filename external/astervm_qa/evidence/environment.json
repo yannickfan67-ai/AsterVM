@@ -1,0 +1,7 @@
+{
+  "platform": "Linux-6.18.15-x86_64-with-glibc2.39",
+  "python": "3.12.3 (main, Aug 31 2026, 10:18:26) [GCC 13.3.0]",
+  "unicorn": "2.1.4",
+  "windows_native_tested": false,
+  "astervm_core_tested": false
+}

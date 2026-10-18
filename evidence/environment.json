@@ -1,0 +1,17 @@
+{
+  "platform": "Linux-6.18.55-x86_64-with-glibc2.39",
+  "machine": "x86_64",
+  "python": "3.12.14",
+  "compiler": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+  "sanitizers": "address,undefined; detect_leaks=0",
+  "contract": "astervm.m0.v2",
+  "tests": {
+    "core_groups": 48,
+    "cli_tests": 9,
+    "ctest_targets": 3,
+    "external_passed": 27,
+    "external_total": 40,
+    "external_unsupported": 13
+  },
+  "windows_native": "GitHub Actions windows-latest: configure/build/3 CTest targets succeeded, run 39130913103"
+}

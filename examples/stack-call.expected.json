@@ -1,0 +1,12 @@
+{
+  "contract": "astervm.m0.v2",
+  "stop": "halted",
+  "steps": 8,
+  "state": {
+    "eax": 0,
+    "ebx": 4660,
+    "esp": 32768,
+    "eip": 31754,
+    "halted": true
+  }
+}

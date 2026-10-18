@@ -1,0 +1,19 @@
+{
+  "repository": "yannickfan67-ai/AsterVM",
+  "validated_code_commit": "79fecff6bfb498277101358b083f1fa08b87257f",
+  "run_id": 39130913103,
+  "run_url": "https://github.com/yannickfan67-ai/AsterVM/actions/runs/39130913103",
+  "jobs": [
+    {
+      "id": 117685700296,
+      "name": "native (ubuntu-latest)",
+      "conclusion": "success"
+    },
+    {
+      "id": 117685700462,
+      "name": "native (windows-latest)",
+      "conclusion": "success"
+    }
+  ],
+  "source": "GitHub connector workflow jobs result; both Configure/Build/Test steps completed/success"
+}

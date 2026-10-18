@@ -1,0 +1,448 @@
+{
+  "label": "reference",
+  "total": 40,
+  "passed": 0,
+  "failed": 40,
+  "results": [
+    {
+      "id": "mov_ax_imm16",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 4660,
+          "actual": 4661
+        }
+      ]
+    },
+    {
+      "id": "mov_al_preserves_ah",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 43862,
+          "actual": 43863
+        }
+      ]
+    },
+    {
+      "id": "mov_ah_preserves_al",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 4813,
+          "actual": 4812
+        }
+      ]
+    },
+    {
+      "id": "mov_bx_from_ax",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 17767,
+          "actual": 17766
+        }
+      ]
+    },
+    {
+      "id": "xchg_ax_bx",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 8738,
+          "actual": 8739
+        }
+      ]
+    },
+    {
+      "id": "nop_preserves_state",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 4660,
+          "actual": 4661
+        }
+      ]
+    },
+    {
+      "id": "add_word_carry_zero",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "add_word_signed_overflow",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 32768,
+          "actual": 32769
+        }
+      ]
+    },
+    {
+      "id": "add_byte_auxiliary_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 4624,
+          "actual": 4625
+        }
+      ]
+    },
+    {
+      "id": "sub_word_borrow",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 65535,
+          "actual": 65534
+        }
+      ]
+    },
+    {
+      "id": "sub_word_signed_overflow",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 32767,
+          "actual": 32766
+        }
+      ]
+    },
+    {
+      "id": "cmp_equal_preserves_ax",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 4660,
+          "actual": 4661
+        }
+      ]
+    },
+    {
+      "id": "inc_preserves_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "dec_preserves_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 65535,
+          "actual": 65534
+        }
+      ]
+    },
+    {
+      "id": "xor_zero",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "and_sign",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 32768,
+          "actual": 32769
+        }
+      ]
+    },
+    {
+      "id": "or_parity",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 3,
+          "actual": 2
+        }
+      ]
+    },
+    {
+      "id": "test_preserves_operand",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 32768,
+          "actual": 32769
+        }
+      ]
+    },
+    {
+      "id": "clc_clears_only_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "stc_sets_only_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "cmc_toggles_carry",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "cld_clears_direction",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "std_sets_direction",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "push_ax",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 4660,
+          "actual": 4661
+        }
+      ]
+    },
+    {
+      "id": "pop_bx",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "jmp_short_forward",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "jz_taken",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "jz_not_taken",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "jnz_taken",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "loop_taken",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "loop_fallthrough",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "mov_store_ds_offset",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 48879,
+          "actual": 48878
+        }
+      ]
+    },
+    {
+      "id": "mov_load_ds_offset",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 51966,
+          "actual": 51967
+        }
+      ]
+    },
+    {
+      "id": "mov_load_nonzero_ds",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 17185,
+          "actual": 17184
+        }
+      ]
+    },
+    {
+      "id": "mov_load_bx_si",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 39612,
+          "actual": 39613
+        }
+      ]
+    },
+    {
+      "id": "mov_bp_defaults_ss",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 22136,
+          "actual": 22137
+        }
+      ]
+    },
+    {
+      "id": "call_relative_pushes_return",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "ret_pops_ip",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 0,
+          "actual": 1
+        }
+      ]
+    },
+    {
+      "id": "neg_word_minimum",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 32768,
+          "actual": 32769
+        }
+      ]
+    },
+    {
+      "id": "not_preserves_flags",
+      "pass": false,
+      "differences": [
+        {
+          "field": "registers.ax",
+          "expected": 61680,
+          "actual": 61681
+        }
+      ]
+    }
+  ]
+}

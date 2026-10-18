@@ -1,0 +1,44 @@
+FAIL mov_ax_imm16
+FAIL mov_al_preserves_ah
+FAIL mov_ah_preserves_al
+FAIL mov_bx_from_ax
+FAIL xchg_ax_bx
+FAIL nop_preserves_state
+FAIL add_word_carry_zero
+FAIL add_word_signed_overflow
+FAIL add_byte_auxiliary_carry
+FAIL sub_word_borrow
+FAIL sub_word_signed_overflow
+FAIL cmp_equal_preserves_ax
+FAIL inc_preserves_carry
+FAIL dec_preserves_carry
+FAIL xor_zero
+FAIL and_sign
+FAIL or_parity
+FAIL test_preserves_operand
+FAIL clc_clears_only_carry
+FAIL stc_sets_only_carry
+FAIL cmc_toggles_carry
+FAIL cld_clears_direction
+FAIL std_sets_direction
+FAIL push_ax
+FAIL pop_bx
+FAIL jmp_short_forward
+FAIL jz_taken
+FAIL jz_not_taken
+FAIL jnz_taken
+FAIL loop_taken
+FAIL loop_fallthrough
+FAIL mov_store_ds_offset
+FAIL mov_load_ds_offset
+FAIL mov_load_nonzero_ds
+FAIL mov_load_bx_si
+FAIL mov_bp_defaults_ss
+FAIL call_relative_pushes_return
+FAIL ret_pops_ip
+FAIL neg_word_minimum
+FAIL not_preserves_flags
+reference: 0/40 passed
+
+Observed exit code: 1
+Expected exit code: 1

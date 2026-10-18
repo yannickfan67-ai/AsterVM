@@ -1,0 +1,25 @@
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found Python3: /opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12 (found version "3.12.14") found components: Interpreter
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: /workspace/scratch/astervm-progress-20261018/astervm/build/cmake
+[  9%] Building CXX object CMakeFiles/astervm_core.dir/src/decode16.cpp.o
+[ 18%] Building CXX object CMakeFiles/astervm_core.dir/src/machine.cpp.o
+[ 27%] Building CXX object CMakeFiles/astervm_core.dir/src/execute16.cpp.o
+[ 36%] Building CXX object CMakeFiles/astervm_core.dir/src/json.cpp.o
+[ 45%] Linking CXX static library libastervm_core.a
+[ 45%] Built target astervm_core
+[ 54%] Building CXX object CMakeFiles/astervm_cli.dir/src/main.cpp.o
+[ 63%] Building CXX object CMakeFiles/astervm_step.dir/src/step_bridge.cpp.o
+[ 72%] Linking CXX executable astervm_step
+[ 72%] Built target astervm_step
+[ 81%] Building CXX object CMakeFiles/astervm_tests.dir/tests/core_tests.cpp.o
+[ 90%] Linking CXX executable astervm_cli
+[ 90%] Built target astervm_cli
+[100%] Linking CXX executable astervm_tests
+[100%] Built target astervm_tests

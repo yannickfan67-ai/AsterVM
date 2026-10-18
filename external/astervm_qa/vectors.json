@@ -1,0 +1,2330 @@
+{
+  "schema": "astervm.single_step.v0.1",
+  "cases": [
+    {
+      "id": "mov_ax_imm16",
+      "mode": "real16",
+      "code": "b8 34 12",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 4660,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "mov_al_preserves_ah",
+      "mode": "real16",
+      "code": "b0 56",
+      "initial": {
+        "registers": {
+          "ax": 43981,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 43862,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "mov_ah_preserves_al",
+      "mode": "real16",
+      "code": "b4 12",
+      "initial": {
+        "registers": {
+          "ax": 43981,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 4813,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "mov_bx_from_ax",
+      "mode": "real16",
+      "code": "89 c3",
+      "initial": {
+        "registers": {
+          "ax": 17767,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 17767,
+          "bx": 17767,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "xchg_ax_bx",
+      "mode": "real16",
+      "code": "93",
+      "initial": {
+        "registers": {
+          "ax": 4369,
+          "bx": 8738,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 8738,
+          "bx": 4369,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "nop_preserves_state",
+      "mode": "real16",
+      "code": "90",
+      "initial": {
+        "registers": {
+          "ax": 4660,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 4660,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "add_word_carry_zero",
+      "mode": "real16",
+      "code": "05 01 00",
+      "initial": {
+        "registers": {
+          "ax": 65535,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 87,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "add_word_signed_overflow",
+      "mode": "real16",
+      "code": "05 01 00",
+      "initial": {
+        "registers": {
+          "ax": 32767,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 32768,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 2198,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "add_byte_auxiliary_carry",
+      "mode": "real16",
+      "code": "04 01",
+      "initial": {
+        "registers": {
+          "ax": 4623,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 4624,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 18,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "sub_word_borrow",
+      "mode": "real16",
+      "code": "2d 01 00",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 65535,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 151,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "sub_word_signed_overflow",
+      "mode": "real16",
+      "code": "2d 01 00",
+      "initial": {
+        "registers": {
+          "ax": 32768,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 32767,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 2070,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "cmp_equal_preserves_ax",
+      "mode": "real16",
+      "code": "3d 34 12",
+      "initial": {
+        "registers": {
+          "ax": 4660,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 4660,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 70,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "inc_preserves_carry",
+      "mode": "real16",
+      "code": "40",
+      "initial": {
+        "registers": {
+          "ax": 65535,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 3
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 87,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "dec_preserves_carry",
+      "mode": "real16",
+      "code": "48",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 3
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 65535,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 151,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "xor_zero",
+      "mode": "real16",
+      "code": "31 c0",
+      "initial": {
+        "registers": {
+          "ax": 4660,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 70,
+        "flags_mask": 2245,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "and_sign",
+      "mode": "real16",
+      "code": "25 00 80",
+      "initial": {
+        "registers": {
+          "ax": 65535,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 32768,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 134,
+        "flags_mask": 2245,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "or_parity",
+      "mode": "real16",
+      "code": "0d 03 00",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 3,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 6,
+        "flags_mask": 2245,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "test_preserves_operand",
+      "mode": "real16",
+      "code": "a9 ff 00",
+      "initial": {
+        "registers": {
+          "ax": 32768,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 32768,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 70,
+        "flags_mask": 2245,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "clc_clears_only_carry",
+      "mode": "real16",
+      "code": "f8",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 1027
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 1026,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "stc_sets_only_carry",
+      "mode": "real16",
+      "code": "f9",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 3,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "cmc_toggles_carry",
+      "mode": "real16",
+      "code": "f5",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 3
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "cld_clears_direction",
+      "mode": "real16",
+      "code": "fc",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 1026
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "std_sets_direction",
+      "mode": "real16",
+      "code": "fd",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 1026,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "push_ax",
+      "mode": "real16",
+      "code": "50",
+      "initial": {
+        "registers": {
+          "ax": 4660,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 4660,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32766,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [
+          {
+            "address": 32766,
+            "hex": "34 12"
+          }
+        ],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "pop_bx",
+      "mode": "real16",
+      "code": "5b",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": [
+          {
+            "address": 32768,
+            "hex": "78 56"
+          }
+        ]
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 22136,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32770,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4097
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "jmp_short_forward",
+      "mode": "real16",
+      "code": "eb 02",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4100
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "jz_taken",
+      "mode": "real16",
+      "code": "74 02",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 66
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4100
+        },
+        "flags": 66,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "jz_not_taken",
+      "mode": "real16",
+      "code": "74 02",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "jnz_taken",
+      "mode": "real16",
+      "code": "75 02",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4100
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "loop_taken",
+      "mode": "real16",
+      "code": "e2 fe",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 2,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 1,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "loop_fallthrough",
+      "mode": "real16",
+      "code": "e2 fe",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 1,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "mov_store_ds_offset",
+      "mode": "real16",
+      "code": "a3 00 20",
+      "initial": {
+        "registers": {
+          "ax": 48879,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 48879,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [
+          {
+            "address": 8192,
+            "hex": "ef be"
+          }
+        ],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "mov_load_ds_offset",
+      "mode": "real16",
+      "code": "a1 00 20",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": [
+          {
+            "address": 8192,
+            "hex": "fe ca"
+          }
+        ]
+      },
+      "expected": {
+        "registers": {
+          "ax": 51966,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "mov_load_nonzero_ds",
+      "mode": "real16",
+      "code": "a1 00 20",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 256,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": [
+          {
+            "address": 12288,
+            "hex": "21 43"
+          }
+        ]
+      },
+      "expected": {
+        "registers": {
+          "ax": 17185,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 256,
+          "es": 0,
+          "ss": 0,
+          "ip": 4099
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "mov_load_bx_si",
+      "mode": "real16",
+      "code": "8b 00",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 8192,
+          "cx": 0,
+          "dx": 0,
+          "si": 16,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": [
+          {
+            "address": 8208,
+            "hex": "bc 9a"
+          }
+        ]
+      },
+      "expected": {
+        "registers": {
+          "ax": 39612,
+          "bx": 8192,
+          "cx": 0,
+          "dx": 0,
+          "si": 16,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "mov_bp_defaults_ss",
+      "mode": "real16",
+      "code": "8b 46 00",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 512,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 768,
+          "es": 0,
+          "ss": 256,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": [
+          {
+            "address": 4608,
+            "hex": "78 56"
+          }
+        ]
+      },
+      "expected": {
+        "registers": {
+          "ax": 22136,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 512,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 768,
+          "es": 0,
+          "ss": 256,
+          "ip": 4099
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "call_relative_pushes_return",
+      "mode": "real16",
+      "code": "e8 02 00",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32766,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4101
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [
+          {
+            "address": 32766,
+            "hex": "03 10"
+          }
+        ],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "ret_pops_ip",
+      "mode": "real16",
+      "code": "c3",
+      "initial": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": [
+          {
+            "address": 32768,
+            "hex": "34 12"
+          }
+        ]
+      },
+      "expected": {
+        "registers": {
+          "ax": 0,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32770,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4660
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "neg_word_minimum",
+      "mode": "real16",
+      "code": "f7 d8",
+      "initial": {
+        "registers": {
+          "ax": 32768,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 32768,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 2183,
+        "flags_mask": 2261,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    },
+    {
+      "id": "not_preserves_flags",
+      "mode": "real16",
+      "code": "f7 d0",
+      "initial": {
+        "registers": {
+          "ax": 3855,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4096,
+          "flags": 2
+        },
+        "memory": []
+      },
+      "expected": {
+        "registers": {
+          "ax": 61680,
+          "bx": 0,
+          "cx": 0,
+          "dx": 0,
+          "si": 0,
+          "di": 0,
+          "bp": 0,
+          "sp": 32768,
+          "cs": 0,
+          "ds": 0,
+          "es": 0,
+          "ss": 0,
+          "ip": 4098
+        },
+        "flags": 2,
+        "flags_mask": 65535,
+        "memory": [],
+        "reason": "step"
+      },
+      "budget": {
+        "instructions": 1,
+        "timeout_seconds": 5
+      },
+      "failure_conditions": [
+        "register_mismatch",
+        "defined_flags_mismatch",
+        "memory_mismatch",
+        "unexpected_stop",
+        "adapter_error",
+        "timeout"
+      ]
+    }
+  ]
+}

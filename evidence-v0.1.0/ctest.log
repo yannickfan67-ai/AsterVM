@@ -1,0 +1,126 @@
+Start testing: Oct 18 02:18 CDT
+----------------------------------------------------------
+1/3 Testing: astervm_core
+1/3 Test: astervm_core
+Command: "/workspace/scratch/58e3b8120a70/astervm/build/cmake/astervm_tests"
+Directory: /workspace/scratch/58e3b8120a70/astervm/build/cmake
+"astervm_core" start time: Oct 18 02:18 CDT
+Output:
+----------------------------------------------------------
+PASS mov_high_low_preserves_upper32
+PASS all_register_immediates
+PASS exhaustive_add8_65536_vectors
+PASS exhaustive_sub8_65536_vectors
+PASS add16_signed_overflow
+PASS add16_unsigned_carry
+PASS cmp_does_not_write_register
+PASS inc_dec_preserve_carry_and_unrelated_flags
+PASS conditional_loop_retires_exact_steps
+PASS jz_taken
+PASS near_relative_jump
+PASS negative_near_jump_budget
+PASS budget_stops_infinite_loop
+PASS zero_budget_has_no_side_effect
+PASS halt_is_idempotent
+PASS unsupported_preserves_ip_and_state
+PASS prefix_is_explicitly_unsupported
+PASS fetch_wraps_16bit_ip
+PASS segmented_memory_and_write_diff
+PASS a20_off_wraps_physical_address
+PASS unmapped_input_returns_ff
+PASS dx_port_input_output
+PASS demo_executes_machine_code
+PASS failed_step_rolls_back_ram_state_and_io
+PASS exception_step_rolls_back
+PASS out_of_range_fetch_is_host_bus_fault
+PASS image_load_rejects_partial_overflow
+PASS decoder_is_read_only
+28 passed, 0 failed; includes 131072 exhaustive arithmetic vectors
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"astervm_core" end time: Oct 18 02:18 CDT
+"astervm_core" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/3 Testing: astervm_cli_integration
+2/3 Test: astervm_cli_integration
+Command: "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12" "/workspace/scratch/58e3b8120a70/astervm/tests/cli_tests.py" "/workspace/scratch/58e3b8120a70/astervm/build/cmake/astervm_cli"
+Directory: /workspace/scratch/58e3b8120a70/astervm/build/cmake
+"astervm_cli_integration" start time: Oct 18 02:18 CDT
+Output:
+----------------------------------------------------------
+test_budget_termination (__main__.CliTests.test_budget_termination) ... ok
+test_demo_and_trace (__main__.CliTests.test_demo_and_trace) ... ok
+test_empty_image_rejected (__main__.CliTests.test_empty_image_rejected) ... ok
+test_expected_state_pass_and_mismatch (__main__.CliTests.test_expected_state_pass_and_mismatch) ... ok
+test_invalid_arguments (__main__.CliTests.test_invalid_arguments) ... ok
+test_raw_image_and_custom_entry (__main__.CliTests.test_raw_image_and_custom_entry) ... ok
+test_trace_output_failure_is_error (__main__.CliTests.test_trace_output_failure_is_error) ... ok
+test_unsupported_is_not_success (__main__.CliTests.test_unsupported_is_not_success) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.126s
+
+OK
+<end of output>
+Test time =   0.17 sec
+----------------------------------------------------------
+Test Passed.
+"astervm_cli_integration" end time: Oct 18 02:18 CDT
+"astervm_cli_integration" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/3 Testing: astervm_external_m0_profile
+3/3 Test: astervm_external_m0_profile
+Command: "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python3.12" "/workspace/scratch/58e3b8120a70/astervm/tools/run_external_qa.py" "--bridge" "/workspace/scratch/58e3b8120a70/astervm/build/cmake/astervm_step" "--report" "/workspace/scratch/58e3b8120a70/astervm/build/cmake/external-qa-report.json"
+Directory: /workspace/scratch/58e3b8120a70/astervm/build/cmake
+"astervm_external_m0_profile" start time: Oct 18 02:18 CDT
+Output:
+----------------------------------------------------------
+{
+  "backend": "native AsterVM Interpreter16; no external emulator backend",
+  "full_corpus_total": 40,
+  "full_corpus_passed": 16,
+  "full_corpus_failed": 24,
+  "m0_profile_total": 16,
+  "m0_profile_passed": 16,
+  "m0_profile_failed": [],
+  "out_of_scope_unsupported": [
+    "mov_bx_from_ax",
+    "xchg_ax_bx",
+    "xor_zero",
+    "and_sign",
+    "or_parity",
+    "test_preserves_operand",
+    "clc_clears_only_carry",
+    "stc_sets_only_carry",
+    "cmc_toggles_carry",
+    "cld_clears_direction",
+    "std_sets_direction",
+    "push_ax",
+    "pop_bx",
+    "loop_taken",
+    "loop_fallthrough",
+    "mov_store_ds_offset",
+    "mov_load_ds_offset",
+    "mov_load_nonzero_ds",
+    "mov_load_bx_si",
+    "mov_bp_defaults_ss",
+    "call_relative_pushes_return",
+    "ret_pops_ip",
+    "neg_word_minimum",
+    "not_preserves_flags"
+  ],
+  "unexpected_out_of_scope_failures": []
+}
+<end of output>
+Test time =   4.18 sec
+----------------------------------------------------------
+Test Passed.
+"astervm_external_m0_profile" end time: Oct 18 02:18 CDT
+"astervm_external_m0_profile" time elapsed: 00:00:04
+----------------------------------------------------------
+
+End testing: Oct 18 02:18 CDT

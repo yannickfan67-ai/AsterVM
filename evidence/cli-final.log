@@ -1,0 +1,14 @@
+test_budget_termination (__main__.CliTests.test_budget_termination) ... ok
+test_call_stack_image_and_trace (__main__.CliTests.test_call_stack_image_and_trace) ... ok
+test_demo_and_trace (__main__.CliTests.test_demo_and_trace) ... ok
+test_empty_image_rejected (__main__.CliTests.test_empty_image_rejected) ... ok
+test_expected_state_pass_and_mismatch (__main__.CliTests.test_expected_state_pass_and_mismatch) ... ok
+test_invalid_arguments (__main__.CliTests.test_invalid_arguments) ... ok
+test_raw_image_and_custom_entry (__main__.CliTests.test_raw_image_and_custom_entry) ... ok
+test_trace_output_failure_is_error (__main__.CliTests.test_trace_output_failure_is_error) ... ok
+test_unsupported_is_not_success (__main__.CliTests.test_unsupported_is_not_success) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.145s
+
+OK
