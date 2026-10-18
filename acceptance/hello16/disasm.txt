@@ -1,0 +1,14 @@
+; objdump-style reference disassembly @ 0x7C00 (capstone)
+0x7c00: 31c0     xor ax, ax
+0x7c02: 8ed8     mov ds, ax
+0x7c04: bc187c   mov sp, 0x7c18
+0x7c07: 8a07     mov al, byte ptr [bx]
+0x7c09: 84c0     test al, al
+0x7c0b: 7409     je 0x7c16
+0x7c0d: b40e     mov ah, 0xe
+0x7c0f: 31c9     xor cx, cx
+0x7c11: cd10     int 0x10
+0x7c13: 43       inc bx
+0x7c14: ebf1     jmp 0x7c07
+0x7c16: fa       cli 
+0x7c17: f4       hlt 

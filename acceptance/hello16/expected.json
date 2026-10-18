@@ -1,0 +1,27 @@
+{
+  "image": "hello.bin",
+  "sha256": "2bca8ba714f428b52ad9b440e6f0694c7f0d948068511c587bc947f0e1389613",
+  "start": {
+    "cs_ip": "0x07C0:0x0000",
+    "linear": "0x7c00"
+  },
+  "steps": 136,
+  "final_regs": {
+    "ax": "0xe00",
+    "bx": "0x7c28",
+    "cx": "0x0",
+    "dx": "0x0",
+    "si": "0x0",
+    "di": "0x0",
+    "sp": "0xfffe",
+    "bp": "0x0",
+    "ip": "0x17",
+    "cs": "0x7c0",
+    "ds": "0x0",
+    "es": "0x0",
+    "ss": "0x0"
+  },
+  "tty_output": "Hello, x86emu!\r\n",
+  "expected_tty": "Hello, x86emu!\r\n",
+  "verdict": "PASS"
+}
